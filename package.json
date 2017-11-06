@@ -1,0 +1,21 @@
+{
+  "name": "netvertise-test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "papaparse": "^4.3.6",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^4.0.6",
+    "react-scripts": "1.0.17",
+    "redux": "^3.3.1",
+    "redux-thunk": "1.0.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
