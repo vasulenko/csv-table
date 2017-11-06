@@ -24,9 +24,9 @@ export function updateFile(file) {
                 const currentState = getState().file;
                 let interval = 0;
                 for (let i = 10; i < result.data.length; i++) {
-                    interval += parseInt(result.data[i]);
+                    interval += parseInt(result.data[i], 10);
                     setTimeout(_ => {
-                        composer(currentState.data, result.data.slice(i - 9, i), interval, dispatch);
+                        composer(currentState.data, result.data.slice(i - 9, i), dispatch);
                     }, interval);
                     i += 10;
                 }
@@ -35,15 +35,15 @@ export function updateFile(file) {
     }
 }
 
-function composer(current, result, interval, dispatch) {
+function composer(current, result, dispatch) {
     let composedState = current.slice();
-    for (let i = 0; i < result.length; i++) {
-        for (let j = 0; j < result[i].length; j++) {
-            if (result[i][j].length > 0) {
-                composedState[i + 1][j] = result[i][j];
+    result.forEach((el, i) => {
+        el.forEach((cell, j) => {
+            if (cell.length > 0) {
+                composedState[i + 1][j] = cell;
             }
-        }
-    }
+        });
+    });
     dispatch({
         type: UPDATE_FILE,
         payload: composedState

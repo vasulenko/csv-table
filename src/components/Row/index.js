@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 export default class Row extends Component {
     render() {
-        let cells = this.props.data.map((el, i) => {
+        const cells = this.props.data.map((el, i) => {
             return (
                 <div className={'cell'} key={i}>{el}</div>
             )

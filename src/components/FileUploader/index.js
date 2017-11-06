@@ -4,13 +4,8 @@ import PropTypes from 'prop-types'
 export default class FileUploader extends Component {
     onFileUpload() {
         if (!document.getElementsByName('file')[0].files[0]) return;
-        const file = document.getElementsByName('file')[0].files[0];
-        if (file.name === 'deltas.csv') {
-            this.props.updateFile(file);
-        }
-        else {
-            this.props.fetchFile(file);
-        }
+        let file = document.getElementsByName('file')[0].files[0];
+        file.name === 'deltas.csv' ? this.props.updateFile(file) : this.props.fetchFile(file);
     }
 
     render() {

@@ -9,7 +9,7 @@ let initialState;
 const localFile = new XMLHttpRequest();
 
 localFile.open("GET", data, false);
-localFile.onreadystatechange = function () {
+localFile.onreadystatechange = _ => {
     if (localFile.readyState === 4) {
         if (localFile.status === 200 || localFile.status === 0) {
             Papa.parse(localFile.responseText, {

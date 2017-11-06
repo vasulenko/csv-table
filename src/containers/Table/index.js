@@ -8,7 +8,7 @@ class Table extends Component {
             return <div className={'error'}>No such file</div>;
         }
         const data = this.props.file.data;
-        let rows = data.map((el, i) => {
+        const rows = data.map((el, i) => {
             return (
                 el.length === data[0].length ? <Row data={el} key={i}/> : ''
             )
