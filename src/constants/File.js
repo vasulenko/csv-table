@@ -1,2 +1,2 @@
 export const FETCH_FILE = 'FETCH_FILE';
-export const UPDATE_FILE = 'UPDATE_FILE';
+export const UPDATE_WITH_DELTAS = 'UPDATE_WITH_DELTAS';

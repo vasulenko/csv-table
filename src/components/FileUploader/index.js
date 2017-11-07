@@ -5,7 +5,7 @@ export default class FileUploader extends Component {
     onFileUpload() {
         if (!document.getElementsByName('file')[0].files[0]) return;
         let file = document.getElementsByName('file')[0].files[0];
-        file.name === 'deltas.csv' ? this.props.updateFile(file) : this.props.fetchFile(file);
+        file.name === 'deltas.csv' ? this.props.updateWithDeltas(file) : this.props.fetchFile(file);
     }
 
     render() {
@@ -17,5 +17,5 @@ export default class FileUploader extends Component {
 }
 FileUploader.propTypes = {
     fetchFile: PropTypes.func.isRequired,
-    updateFile: PropTypes.func.isRequired
+    updateWithDeltas: PropTypes.func.isRequired
 };

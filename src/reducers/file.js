@@ -1,6 +1,6 @@
 import {
     FETCH_FILE,
-    UPDATE_FILE
+    UPDATE_WITH_DELTAS
 } from '../constants/File'
 import data from '../snapshot.csv'
 import Papa from 'papaparse'
@@ -27,7 +27,7 @@ export default function page(state = initialState, action) {
     switch (action.type) {
         case FETCH_FILE:
             return {...state, data: action.payload};
-        case UPDATE_FILE:
+        case UPDATE_WITH_DELTAS:
             return {...state, data: action.payload};
         default:
             return state;

@@ -7,9 +7,9 @@ import Table from '../Table'
 
 class App extends Component {
     render() {
-        const {fetchFile, updateFile} = this.props.fileActions;
+        const {fetchFile, updateWithDeltas} = this.props.fileActions;
         return <div className='app'>
-            <FileUploader fetchFile={fetchFile} updateFile={updateFile}/>
+            <FileUploader fetchFile={fetchFile} updateWithDeltas={updateWithDeltas}/>
             <Table/>
         </div>
     }

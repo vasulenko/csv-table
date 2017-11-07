@@ -1,6 +1,6 @@
 import {
     FETCH_FILE,
-    UPDATE_FILE
+    UPDATE_WITH_DELTAS
 } from '../constants/File'
 import Papa from 'papaparse'
 
@@ -17,36 +17,44 @@ export function fetchFile(file) {
     }
 }
 
-export function updateFile(file) {
+export function updateWithDeltas(file) {
     return (dispatch, getState) => {
         Papa.parse(file, {
             complete: result => {
-                const currentState = getState().file;
                 let interval = 0;
-                for (let i = 10; i < result.data.length; i++) {
-                    interval += parseInt(result.data[i], 10);
-                    setTimeout(_ => {
-                        composer(currentState.data, result.data.slice(i - 9, i), dispatch);
-                    }, interval);
-                    i += 10;
-                }
+                let deltasArr = [];
+                result.data.forEach((el, i) => {
+                    if (el.length === 1 && el[0] !== '') {
+                        interval += parseInt(el[0], 10);
+                        composer(deltasArr.slice(), interval, dispatch, getState);
+                        deltasArr = [];
+                    }
+                    else {
+                        deltasArr.push(el);
+                    }
+                });
             }
         });
     }
 }
 
-function composer(current, result, dispatch) {
-    let composedState = current.slice();
-    result.forEach((el, i) => {
-        el.forEach((cell, j) => {
-            if (cell.length > 0) {
-                composedState[i + 1][j] = cell;
-            }
+function composer(deltasArr, interval, dispatch, getState) {
+    setTimeout(_ => {
+        let composedState = getState().file.data;
+        if (deltasArr.length > composedState.length - 1) {
+            composedState = composedState.concat(deltasArr.slice(composedState.length - 1));
+        }
+        deltasArr.forEach((delta, i) => {
+            delta.forEach((cell, j) => {
+                if (cell.length > 0) {
+                    composedState[i + 1][j] = cell;
+                }
+            });
         });
-    });
-    dispatch({
-        type: UPDATE_FILE,
-        payload: composedState
-    });
-
+        dispatch({
+            type: UPDATE_WITH_DELTAS,
+            payload: composedState
+        });
+        return composedState;
+    }, interval);
 }
