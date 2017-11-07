@@ -21,8 +21,8 @@ export function updateWithDeltas(file) {
     return (dispatch, getState) => {
         Papa.parse(file, {
             complete: result => {
-                let interval = 0;
-                let deltasArr = [];
+                let interval = 0,
+                    deltasArr = [];
                 result.data.forEach((el, i) => {
                     if (el.length === 1 && el[0] !== '') {
                         interval += parseInt(el[0], 10);
@@ -40,7 +40,7 @@ export function updateWithDeltas(file) {
 
 function composer(deltasArr, interval, dispatch, getState) {
     setTimeout(_ => {
-        let composedState = getState().file.data;
+        let composedState = getState().file.data.slice();
         if (deltasArr.length > composedState.length - 1) {
             composedState = composedState.concat(deltasArr.slice(composedState.length - 1));
         }
@@ -55,6 +55,5 @@ function composer(deltasArr, interval, dispatch, getState) {
             type: UPDATE_WITH_DELTAS,
             payload: composedState
         });
-        return composedState;
     }, interval);
 }
